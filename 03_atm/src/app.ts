@@ -58,7 +58,7 @@ const atm = async ():Promise<void> => {
       name: "deposit",
       type: "input",
       message: chalk.green("How much money do you want to deposit?"),
-      when(answers):boolean {
+      when(answers:any):boolean {
         return answers.payType === "Deposit";
       },
       validate: valid,
@@ -68,7 +68,7 @@ const atm = async ():Promise<void> => {
       type: "rawlist",
       choices: ["Fast Cash", "Withdraw"],
       message: chalk.magenta("Choose the method of payment?"),
-      when(answers):boolean {
+      when(answers:any):boolean {
         return answers.payType === "Withdraw";
       },
     },
@@ -77,7 +77,7 @@ const atm = async ():Promise<void> => {
       type: "rawlist",
       message: chalk.gray("Choose an amount"),
       choices: [1000, 2000, 5000, 10000, 50000, 100000],
-      when(answers):boolean {
+      when(answers:any):boolean {
         return answers.withdrawMethod === "Fast Cash";
       },
     },
@@ -86,7 +86,7 @@ const atm = async ():Promise<void> => {
       type: "input",
       message: chalk.blue("How much money do you want to withdraw?"),
       validate: valid,
-      when(answers):boolean {
+      when(answers:any):boolean {
         return answers.withdrawMethod === "Withdraw";
       },
     },
