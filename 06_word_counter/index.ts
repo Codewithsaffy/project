@@ -2,7 +2,7 @@
 import inquirer from "inquirer"
 import chalk from "chalk"
 import figlet from "figlet"
-
+console.clear()
 const { yellow, red, magenta  } = chalk;
 console.log(yellow(figlet.textSync("Word Counter", { horizontalLayout: 'full' })));
 

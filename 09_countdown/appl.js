@@ -1,6 +1,5 @@
 import inquirer from "inquirer";
 import { differenceInSeconds } from "date-fns";
-import figlet from "figlet";
 function validation(input) {
     let parsed = parseFloat(input);
     if (isNaN(parsed)) {
@@ -11,23 +10,12 @@ function validation(input) {
     }
     return true;
 }
-// Function to display the welcome message using figlet
 function welcome() {
-    figlet.text('Welcome to the Timer Application!', function (err, data) {
-      if (err) {
-        console.log('Something went wrong...');
-        console.dir(err);
-        return;
-      }
-      console.log(data);
-      console.log("You will be prompted to enter the number of seconds (up to 60) for the timer.");
-    });
-  }
-  
-  // Invoke the welcome function
-  welcome();
+    console.log("Welcome to the Timer Application!");
+    console.log("You will be prompted to enter the number of seconds (up to 60) for the timer.");
+}
 async function main() {
-    welcome(); 
+    welcome(); // Call the welcome function here
     const res = await inquirer.prompt({
         type: "input",
         name: "userInput",
@@ -45,13 +33,13 @@ function startTime(val) {
         const timeDiff = differenceInSeconds(date, currentTime);
         if (timeDiff <= 0) {
             console.log("Timer has expired");
-            clearInterval(intervalId); 
+            clearInterval(intervalId); // Clear the interval to stop the timer
             process.exit();
         }
         const minutes = Math.floor(timeDiff / 60);
         const seconds = Math.floor(timeDiff % 60);
-        console.clear(); 
+        console.clear(); // Clear the console for a cleaner output
         console.log(`${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`);
     }, 1000);
 }
-main(); 
+main(); // Start the application
