@@ -1,12 +1,33 @@
+#! /usr/bin/env node
+
 import inquirer from "inquirer";
 import chalk from "chalk";
 import figlet from "figlet";
-import RandomName from './randomName.js'
+
+
 
 console.clear()
-// Number format function
+// random number
 
-function formatNumber(num:number):string {
+function RandomName() {
+  const maleNames = ["Muhammad", "Ali", "Omar", "Ahmed", "Ibrahim", "Yusuf", "Mustafa", "Hassan", "Abdullah", "Khalid"];
+  const femaleNames = ["Fatima", "Aisha", "Khadija", "Maryam", "Zainab", "Safia", "Nadia", "Leila", "Sana", "Amina"];
+  const lastNames = ["Abdul", "Hassan", "Ali", "Khan", "Ahmed", "Mohammed", "Hussain", "Omar", "Ibrahim", "Rahman"];
+
+  const randomMaleName = maleNames[Math.floor(Math.random() * maleNames.length)];
+  const randomFemaleName = femaleNames[Math.floor(Math.random() * femaleNames.length)];
+  const randomLastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+
+  // Randomly decide whether to use a male or female name
+  const isMale = Math.random() < 0.5;
+  if (isMale) {
+    return randomMaleName + " " + randomLastName;
+  } else {
+    return randomFemaleName + " " + randomLastName;
+  }
+}
+// Number format function
+function formatNumber(num: number): string {
   if (num < 1000) {
     return num.toString();
   } else if (num < 1000000) {
@@ -26,12 +47,12 @@ const welcome = () => {
     chalk.yellow(figlet.textSync("Islamic Bank", { horizontalLayout: "full" }))
   );
 };
-const valid = (input:string):string | boolean => {
+const valid = (input: string): string | boolean => {
   return /^\d+$/.test(input)
     ? true
     : chalk.red("Please enter a valid numeric string.");
 };
-const atm = async ():Promise<void> => {
+const atm = async (): Promise<void> => {
   welcome();
   let userBalance = Math.floor(Math.random() * 1000000);
   let questions = await prompt([
@@ -58,7 +79,7 @@ const atm = async ():Promise<void> => {
       name: "deposit",
       type: "input",
       message: chalk.green("How much money do you want to deposit?"),
-      when(answers:any):boolean {
+      when(answers: any): boolean {
         return answers.payType === "Deposit";
       },
       validate: valid,
@@ -68,7 +89,7 @@ const atm = async ():Promise<void> => {
       type: "rawlist",
       choices: ["Fast Cash", "Withdraw"],
       message: chalk.magenta("Choose the method of payment?"),
-      when(answers:any):boolean {
+      when(answers: any): boolean {
         return answers.payType === "Withdraw";
       },
     },
@@ -77,7 +98,7 @@ const atm = async ():Promise<void> => {
       type: "rawlist",
       message: chalk.gray("Choose an amount"),
       choices: [1000, 2000, 5000, 10000, 50000, 100000],
-      when(answers:any):boolean {
+      when(answers: any): boolean {
         return answers.withdrawMethod === "Fast Cash";
       },
     },
@@ -86,7 +107,7 @@ const atm = async ():Promise<void> => {
       type: "input",
       message: chalk.blue("How much money do you want to withdraw?"),
       validate: valid,
-      when(answers:any):boolean {
+      when(answers: any): boolean {
         return answers.withdrawMethod === "Withdraw";
       },
     },
